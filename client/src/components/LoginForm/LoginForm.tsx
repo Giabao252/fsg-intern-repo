@@ -1,5 +1,6 @@
 import { Avatar, Button, TextField, Container, Typography } from '@material-ui/core';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useStyles } from "./styles";
 
@@ -58,8 +59,9 @@ const LoginForm: React.FC = () => {
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign In
+                        Login
                     </Button>
+                    <Typography >Haven't got an account? Sign up <Link to="/signup">here</Link></Typography>
                 </form>
             </div>
         </Container>

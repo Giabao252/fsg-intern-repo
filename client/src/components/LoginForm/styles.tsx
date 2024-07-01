@@ -18,6 +18,7 @@ export const useStyles = makeStyles<Theme>((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+        fontWeight: "bold"
     },
     title: {
         color: "black",
