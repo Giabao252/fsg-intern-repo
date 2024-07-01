@@ -1,9 +1,9 @@
-import { LoginForm, SignUpForm, NavBar } from "../components/export";
+import { LoginForm, NavBar } from "../components/export";
 
-const Home = () => {
+const Home: React.FC = () => {
     return (
         <div>
-            <NavBar />
+            <NavBar home_endpoint="/" account="/account" />
             <LoginForm />
         </div>
     )

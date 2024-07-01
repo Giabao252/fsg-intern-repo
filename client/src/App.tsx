@@ -1,12 +1,17 @@
+import { Route, Routes } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom";
+import Home from "./mains/Home";
 
-import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
+const App: React.FC = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </BrowserRouter>
+    )
+}
 
-export const router = createBrowserRouter(
-	createRoutesFromElements(
-		<Route>
-
-		</Route>
-	)
-)
+export default App;
 
 

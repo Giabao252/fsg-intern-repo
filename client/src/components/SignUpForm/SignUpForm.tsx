@@ -1,5 +1,5 @@
 
-const SignUpForm = () => {
+const SignUpForm: React.FC = () => {
     return (
         <div>
             SignUpForm
