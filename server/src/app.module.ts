@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user/user.entity';
+import { Role } from './role/role.entity';
+import { Pet } from './pet/pet.entity';
+import { Cart } from './cart/cart.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
-import { User } from './user/user.entity';
 
 @Module({
   imports: [
