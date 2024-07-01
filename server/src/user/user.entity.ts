@@ -1,4 +1,3 @@
-// user.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Role } from '../role/role.entity';
 import { Cart } from '../cart/cart.entity';
