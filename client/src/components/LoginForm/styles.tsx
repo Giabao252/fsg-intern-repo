@@ -26,5 +26,8 @@ export const useStyles = makeStyles<Theme>((theme) => ({
     }, 
     avatar: {
         backgroundColor: "blue"
+    },
+    text: {
+        color: "black"
     }
 }));
