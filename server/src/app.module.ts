@@ -1,28 +1,36 @@
 import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
 import { Role } from './role/role.entity';
 import { Pet } from './pet/pet.entity';
 import { Cart } from './cart/cart.entity';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import database from '../config/database';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'root',
-    database: 'test',
-    entities: [User],
-    synchronize: true,
-  }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        ConfigModule.forRoot({
+            load: [database],
+            isGlobal: true,
+        }),
+        TypeOrmModule.forRootAsync({
+            imports: [ConfigModule],
+            useFactory: async (configService: ConfigService) => ({
+                type: 'mysql',
+                host: configService.get<string>('database.host'),
+                port: configService.get<number>('database.port'),
+                username: configService.get<string>('database.username'),
+                password: configService.get<string>('database.password'),
+                database: configService.get<string>('database.name'),
+                entities: [User, Pet, Role, Cart],
+                synchronize: true,
+            }),
+            inject: [ConfigService],
+        }),
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
-export class AppModule {
-    constructor(private dataSource: DataSource) {}
-}
+export class AppModule { }
