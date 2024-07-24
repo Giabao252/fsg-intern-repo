@@ -15,8 +15,8 @@ export class Cart {
     @ManyToOne(() => User, user => user.user_id)
     user_id: User;
 
-    @Column('int')
-    item_count: number;
+    @Column({ name: "item_count"})
+    itemCount: number;
 
     @OneToMany(() => Pet, pets => pets.pet_id)
     pet_id: Pet[];

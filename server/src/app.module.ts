@@ -8,12 +8,14 @@ import { Role } from './role/role.entity';
 import { Pet } from './pet/pet.entity';
 import { Cart } from './cart/cart.entity';
 import database from '../config/database';
+import { UserController } from './user/user.controller';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             load: [database],
             isGlobal: true,
+            envFilePath: '.env',
         }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
@@ -30,7 +32,7 @@ import database from '../config/database';
             inject: [ConfigService],
         }),
     ],
-    controllers: [AppController],
+    controllers: [AppController, UserController],
     providers: [AppService],
 })
 export class AppModule { }
