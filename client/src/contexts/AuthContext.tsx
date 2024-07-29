@@ -9,7 +9,11 @@ export const AuthProvider: React.FC<AuthPropType> = ({ children }) => {
     const [authData, setAuthDataState] = useState<any>(() => {
         // Initial state based on local storage
         const data = localStorage.getItem('authData');
-        return data ? JSON.parse(data) : null;
+        try {
+            return data? JSON.parse(data) : null;
+        } catch {
+            return null;
+        }
     });
 
     const navigate = useNavigate();
@@ -18,8 +22,10 @@ export const AuthProvider: React.FC<AuthPropType> = ({ children }) => {
     useEffect(() => {
         if (authData) {
             localStorage.setItem('authData', JSON.stringify(authData));
+            setCurrentUser(authData.data.username);
         } else {
             localStorage.removeItem('authData');
+            setCurrentUser(null);
         }
     }, [authData]);
 
@@ -32,6 +38,7 @@ export const AuthProvider: React.FC<AuthPropType> = ({ children }) => {
     // Function to log out
     const logout = () => {
         setAuthDataState(null);
+        setCurrentUser(null);
         navigate('/'); // Navigate to guest login page
     };
 
@@ -43,7 +50,7 @@ export const AuthProvider: React.FC<AuthPropType> = ({ children }) => {
             logout,
             currentUser
         }),
-        [authData]
+        [authData, currentUser]
     );
 
 
