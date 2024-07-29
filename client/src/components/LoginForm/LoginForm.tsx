@@ -21,7 +21,7 @@ const LoginForm: React.FC = () => {
     };
 
     //SSO login handlers
-    const { authData, setAuthData, currentUser } = useAuth();
+    const { setAuthData } = useAuth();
     const handleSignInSuccess = async (credentialResponse: {}) => {
         console.log(credentialResponse);
 
