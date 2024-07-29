@@ -1,19 +1,25 @@
-import { Route, Routes } from "react-router-dom"
-import { BrowserRouter } from "react-router-dom";
-import Home from "./mains/Home";
-import { SignUpForm } from "./components/export";
+import {
+    Route,
+    createBrowserRouter,
+    createRoutesFromElements
+  } from "react-router-dom";
+import { ProtectedHome, Home} from "../src/mains/export";
+import { AuthLayout, HomeLayout, ProtectedLayout } from "../src/Routes/export";
 
-const App: React.FC = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
+
+export const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route element={<AuthLayout />}>
+            <Route element={<HomeLayout />}>
                 <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<SignUpForm />} />
-            </Routes>
-        </BrowserRouter>
-    )
-}
+            </Route>
 
-export default App;
+            <Route element={<ProtectedLayout />}>
+                <Route path="/main" element={<ProtectedHome />} />
+
+            </Route>
+        </Route>
+    )
+);
 
 

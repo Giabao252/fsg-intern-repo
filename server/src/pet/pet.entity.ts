@@ -11,19 +11,20 @@ export class Pet {
     @PrimaryGeneratedColumn()
     pet_id: number;
 
-    @Column({ length: 200 })
-    pet_name: string;
+    @Column({ length: 200, name: "pet_name" })
+    petName: string;
 
-    @Column({ default: '', length: 1000 })
-    pet_info: string;
+    @Column({ length: 3000, name: "pet_info" })
+    petInfo: string;
 
-    @Column('int')
-    pet_price: number;
+    @Column({ name: "pet_price"})
+    petPrice: number;
 
     @Column({
         type: 'enum',
         enum: PurchaseStatus,
-        default: PurchaseStatus.in_stock
+        default: PurchaseStatus.in_stock,
+        name: "purchase_status"
     })
-    purchase_status: PurchaseStatus;
+    PurchaseStatus: PurchaseStatus;
 }
