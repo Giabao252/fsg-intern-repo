@@ -8,7 +8,7 @@ import { Role } from './role/role.entity';
 import { Pet } from './pet/pet.entity';
 import { Cart } from './cart/cart.entity';
 import database from '../config/database';
-import { UserController } from './user/user.controller';
+import { UserModule } from './user/user.module';
 
 @Module({
     imports: [
@@ -31,8 +31,9 @@ import { UserController } from './user/user.controller';
             }),
             inject: [ConfigService],
         }),
+        UserModule,
     ],
-    controllers: [AppController, UserController],
+    controllers: [AppController],
     providers: [AppService],
 })
 export class AppModule { }

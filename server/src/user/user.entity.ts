@@ -10,7 +10,7 @@ export class User {
     @Column({ length: 200, unique: true })
     username: string;
 
-    @Column({ length: 200 })
+    @Column({ length: 200, default: "SSO User" })
     password: string;
 
     @Column({ length: 200, unique: true })

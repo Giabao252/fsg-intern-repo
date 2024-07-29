@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useStyles } from "./styles";
 import { useState } from 'react';
-import { useAuthStore } from '../../store/AuthStore';
+import useAuth from '../../hooks/useAuth';
 // google sign-in imports
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 
@@ -19,16 +19,9 @@ const LoginForm: React.FC = () => {
         console.log('Email:', email);
         console.log('Password:', password);
     };
-    /*
-    const accessTokenRetriever = useGoogleLogin({
-        onSuccess: (response) => {
-            //console.log(response);
-        },
-        onError: () => console.log("Error retrieving access token")
-    })
-    */
 
-    const setAuthData = useAuthStore((state: any) => state.setAuthData);
+    //SSO login handlers
+    const { authData, setAuthData, currentUser } = useAuth();
     const handleSignInSuccess = async (credentialResponse: {}) => {
         console.log(credentialResponse);
 
@@ -38,10 +31,9 @@ const LoginForm: React.FC = () => {
                 // pass the token as part of the req body
                 token: credentialResponse.credential,
             }
-
         );
 
-        localStorage.setItem("AuthData", JSON.stringify(data));
+        localStorage.setItem("authData", JSON.stringify(data));
         setAuthData(data);
     }
 
