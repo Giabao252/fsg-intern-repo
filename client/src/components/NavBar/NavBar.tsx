@@ -1,11 +1,7 @@
 import { Typography, Box, AppBar, Toolbar } from '@material-ui/core';
 import { useStyles } from './styles';
 import { Link } from 'react-router-dom';
-
-interface NavBarProps {
-    home_endpoint: string;
-    account: string;
-}
+import { NavBarProps } from '../../interface';
 
 const NavBar = ({home_endpoint, account}: NavBarProps) => {
     const classes = useStyles();
@@ -20,9 +16,9 @@ const NavBar = ({home_endpoint, account}: NavBarProps) => {
                         </Link>
                     </Typography>
                     <div className={classes.navlinks}>
-                        <Link to={account} className={classes.link}>
-                            Account
-                        </Link>
+                        <Typography variant="h5" className={classes.link}>
+                            {account}
+                        </Typography>
                     </div>
                 </Toolbar>
             </AppBar>

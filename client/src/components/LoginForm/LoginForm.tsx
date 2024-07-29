@@ -1,8 +1,13 @@
 import { Avatar, Button, TextField, Container, Typography } from '@material-ui/core';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useStyles } from "./styles";
+import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
+// google sign-in imports
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+
 
 const LoginForm: React.FC = () => {
     const classes = useStyles();
@@ -11,10 +16,30 @@ const LoginForm: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        // Handle the form submission, such as sending the login data to your server
         console.log('Email:', email);
         console.log('Password:', password);
     };
+
+    //SSO login handlers
+    const { setAuthData } = useAuth();
+    const handleSignInSuccess = async (credentialResponse: {}) => {
+        console.log(credentialResponse);
+
+        const { data } = await axios.post(
+            "http://localhost:8080/login",
+            {
+                // pass the token as part of the req body
+                token: credentialResponse.credential,
+            }
+        );
+
+        localStorage.setItem("authData", JSON.stringify(data));
+        setAuthData(data);
+    }
+
+    const handleSignInError = () => {
+        console.log("Login attempt failed");
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -61,7 +86,8 @@ const LoginForm: React.FC = () => {
                     >
                         Login
                     </Button>
-                    <Typography >Haven't got an account? Sign up <Link to="/signup">here</Link></Typography>
+                    <Typography className={classes.text}>Haven't got an account? Sign up <Link to="/signup">here</Link></Typography>
+                    <GoogleLogin useOneTap={true} theme='filled_black' onSuccess={(credentialResponse) => handleSignInSuccess(credentialResponse)} onError={handleSignInError}/>
                 </form>
             </div>
         </Container>
